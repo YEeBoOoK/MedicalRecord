@@ -5,8 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    //'name'=>'MedicReg',
-    //'language'=>'ru-RU',
+    'name'=>'MedicalRecord',
+    'language'=>'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -16,19 +16,34 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'Leonid',
+            'cookieValidationKey' => '638-19',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
-                //poka tak 'multipart/form-data' => 'yii\web\MultipartFormDataParser',
+                'multipart/form-data' => 'yii\web\MultipartFormDataParser',
  ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
 
+        /*Добавьте этот компонент для формирования ответа
+здесь формируется ответ если пользователь неавторизован
+см. Методические указания стр. 21*/
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                if ($response->data !== null && $response->statusCode==401) {
+                    $response->data = ['error'=>['code'=>403, 'message'=>'Unauthorized']];
+                    header('Access-Control-Allow-Origin: *');
+                    header('Content-Type: application/json');
+                }
+            },
+        ],
+
         'user' => [
-            'identityClass' => 'app\models\User', //тут возможно Patient (user|User)
-            'enableAutoLogin' => true,
+            'identityClass' => 'app\models\Patient', //тут возможно Patient (user|User)
+            'enableSession' => false
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -56,24 +71,19 @@ $config = [
             'showScriptName' => false,
 
             'rules' => [
-            ['class' => 'yii\rest\UrlRule', 'controller' => 'clinic'],
-
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'clinic'],
+                //'POST product' => 'clinic/create'
+                //['class' => 'yii\rest\UrlRule', 'controller' => 'patient'],
                 'POST register' => 'patient/create',
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'patient'],
+                'POST login' => 'patient/login',
+                'GET patient' => 'patient/account',
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment']
                 //'POST doctor' => 'doctor/create'
-                //'POST login' => 'user/login',
-                //'GET user' => 'user/account',
-                //'POST product' => 'product/create'
-
-            //['class' => 'yii\rest\UrlRule', 'controller' => 'trip'],// и так далее все табл.
-
-
-            ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment']
+            ]
         ],
-        
+
     ],
     'params' => $params,
 ];

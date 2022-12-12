@@ -19,7 +19,8 @@ use Yii;
  * @property string $insurance
  * @property string $login
  * @property string $password
- * @property string $token
+ * @property int $is_admin
+ * @property string|null $token
  *
  * @property Appointment[] $appointments
  * @property Clinic $patientClinic
@@ -40,19 +41,20 @@ class Patient extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['patient_surname', 'patient_name', 'patient_patronymic', 'patient_birthday', 'patient_phone', 'patient_address', 'id_patient_clinic', 'ID_card', 'insurance', 'login', 'password', 'token'], 'required'],
+            [['patient_surname', 'patient_name', 'patient_patronymic', 'patient_birthday', 'patient_phone', 'patient_address', 'id_patient_clinic', 'ID_card', 'insurance', 'login', 'password'], 'required'],
             [['patient_birthday'], 'safe'],
-            [['id_patient_clinic'], 'integer'],
+            [['id_patient_clinic', 'is_admin'], 'integer'],
             [['patient_surname', 'patient_name', 'patient_patronymic'], 'string', 'max' => 40],
             [['patient_phone'], 'string', 'max' => 20],
             [['patient_address'], 'string', 'max' => 100],
-            [['ID_card', 'insurance', 'login', 'password'], 'string', 'max' => 30],
+            [['ID_card', 'insurance', 'login'], 'string', 'max' => 30],
+            [['password'], 'string', 'max' => 200],
             [['token'], 'string', 'max' => 255],
             [['ID_card'], 'unique'],
             [['insurance'], 'unique'],
             [['login'], 'unique'],
-            [['token'], 'unique'],
             [['patient_phone'], 'unique'],
+            [['token'], 'unique'],
             [['id_patient_clinic'], 'exist', 'skipOnError' => true, 'targetClass' => Clinic::className(), 'targetAttribute' => ['id_patient_clinic' => 'id_clinic']],
         ];
     }
@@ -75,6 +77,7 @@ class Patient extends \yii\db\ActiveRecord
             'insurance' => 'Insurance',
             'login' => 'Login',
             'password' => 'Password',
+            'is_admin' => 'Is Admin',
             'token' => 'Token',
         ];
     }
@@ -89,6 +92,44 @@ class Patient extends \yii\db\ActiveRecord
         return $this->hasMany(Appointment::className(), ['id_patient' => 'id_patient']);
     }
 
+    public static function findIdentity($id_patient)
+    {
+        return static::findOne($id_patient);
+    }
+    public static function findByLogin($login)
+    {
+        return static::findOne(['login' => $login]);
+    }
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id_patient;
+    }
+
+    public function getAuthKey()
+    {
+        return ;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return ;
+    }
+    public function validatePassword($password)
+
+    {
+        $hash = Yii::$app->getSecurity()->generatePasswordHash($password);
+        if (Yii::$app->getSecurity()->validatePassword($password, $hash)) {
+            return $this;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Gets query for [[PatientClinic]].
      *
@@ -97,5 +138,13 @@ class Patient extends \yii\db\ActiveRecord
     public function getPatientClinic()
     {
         return $this->hasOne(Clinic::className(), ['id_clinic' => 'id_patient_clinic']);
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+// удаляем небезопасные поля
+        unset($fields['password'],$fields['id_user'], $fields['token']);
+        return $fields;
     }
 }

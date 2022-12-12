@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b901126c-a825-464f-a840-733a4dc60615" name="Changes" comment="V0">
-      <change beforePath="$PROJECT_DIR$/.idea/Medic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Medic.iml" afterDir="false" />
+    <list default="true" id="b901126c-a825-464f-a840-733a4dc60615" name="Changes" comment="V01">
+      <change afterPath="$PROJECT_DIR$/controllers/FunctionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/PatientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PatientController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Appointment2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Clinic2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Doctor2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/LoginForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/LoginForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Patient.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Patient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Patient2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +146,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -165,7 +181,13 @@
       <workItem from="1670071474607" duration="3494000" />
       <workItem from="1670162274359" duration="2405000" />
       <workItem from="1670167326726" duration="6869000" />
-      <workItem from="1670222064247" duration="1251000" />
+      <workItem from="1670222064247" duration="3355000" />
+      <workItem from="1670235234373" duration="4213000" />
+      <workItem from="1670241756738" duration="1342000" />
+      <workItem from="1670354924213" duration="1971000" />
+      <workItem from="1670794784394" duration="2848000" />
+      <workItem from="1670827553341" duration="5197000" />
+      <workItem from="1670840593832" duration="1707000" />
     </task>
     <task id="LOCAL-00001" summary="V0">
       <created>1669033813176</created>
@@ -181,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669036641532</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="V01">
+      <created>1670224056112</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670224056112</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +229,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="V0" />
-    <option name="LAST_COMMIT_MESSAGE" value="V0" />
+    <MESSAGE value="V01" />
+    <option name="LAST_COMMIT_MESSAGE" value="V01" />
   </component>
 </project>
