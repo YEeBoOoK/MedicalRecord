@@ -80,6 +80,13 @@ $config = [
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
                 //'POST doctor' => 'doctor/create'
+
+                'GET doctor' => 'doctor/doctor',//+
+                'POST doctor' => 'doctor/doctor',//+
+                'GET alldoctor' => 'doctor/alldoctor',//+
+                'POST doctor/add' => 'doctor/add',//+
+                'PATCH doctor/red/<id_doctor>' => 'doctor/red',//+
+                'DELETE doctor/del/<id_doctor>' => 'doctor/del',//+
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment']
             ]
         ],

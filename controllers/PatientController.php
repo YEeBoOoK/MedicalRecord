@@ -56,17 +56,8 @@ public $modelClass = 'app\models\Patient';
      * Личный кабинет пользователя
      */
     public function actionAccount(){
-        $total_price=0;
-        $user=Yii::$app->user->identity; // Получить идентифицированного пользователя
-        $charts=$user->getCharts()->all();
-        $chartItems=[];
-        foreach ($charts as $chart){
-            $chart=new Chart($chart);
-            $product=new Product($chart->getProduct()->one());
-            $chartItems[]=['amount'=>$chart->amount, 'product'=>$product->name, 'image'=>$product->image, 'price'=>$product->price];
-            $total_price+=$chart->amount*$product->price;
-        }
-        return $this->send(200, ['content'=> ['user'=>$user, 'order'=>$chartItems, 'TOTAL'=>$total_price]]);
+        $patient=Yii::$app->user->identity; // Получить идентифицированного пользователя
+        return $this->send(200, ['content'=> ['patient'=>$patient]]);
     }
 
 

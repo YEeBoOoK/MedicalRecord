@@ -30,7 +30,7 @@ class FunctionController extends Controller{
 
     /*Проверка является ли пользователь админом*/
     public function is_admin(){
-        if (Yii::$app->patient->identity->is_admin==1) return true; else return false;
+        if (Yii::$app->user->identity->is_admin==1) return true; else return false;
         /*Через тернарный оператор*/
         //  return Yii::$app->user->identity->is_admin==1 ? true : false;
     }

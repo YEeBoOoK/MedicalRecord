@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "patient".
@@ -25,7 +26,7 @@ use Yii;
  * @property Appointment[] $appointments
  * @property Clinic $patientClinic
  */
-class Patient extends \yii\db\ActiveRecord
+class Patient extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
