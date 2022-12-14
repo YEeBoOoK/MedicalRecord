@@ -41,7 +41,8 @@ class Doctor extends \yii\db\ActiveRecord
             [['doctor_surname', 'doctor_name', 'doctor_patronymic', 'id_doctor_clinic', 'doctor_specialty', 'doctor_office', 'start_date', 'weekday', 'office_hours'], 'required'],
             [['id_doctor_clinic', 'doctor_office'], 'integer'],
             [['start_date'], 'safe'],
-            [['doctor_photo', 'doctor_surname', 'doctor_name', 'doctor_patronymic', 'doctor_specialty'], 'string', 'max' => 40],
+            [['doctor_photo'], 'string', 'max' => 255],
+            [['doctor_surname', 'doctor_name', 'doctor_patronymic', 'doctor_specialty'], 'string', 'max' => 40],
             [['weekday', 'office_hours'], 'string', 'max' => 30],
             [['id_doctor_clinic'], 'exist', 'skipOnError' => true, 'targetClass' => Clinic::className(), 'targetAttribute' => ['id_doctor_clinic' => 'id_clinic']],
         ];

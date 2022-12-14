@@ -20,7 +20,7 @@ public $modelClass = 'app\models\Doctor';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['add', 'del', 'red', 'alltrip'], //Перечислите для контроллера методы, требующие аутентификации
+            'only' => ['add', 'del', 'red', 'alldoctor'], //Перечислите для контроллера методы, требующие аутентификации
 
         ];
         return $behaviors;
@@ -57,7 +57,7 @@ public $modelClass = 'app\models\Doctor';
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Специалист добавлен']]);
     }
 
-    /*Удалить рейсы*/
+    /*Удалить дока*/
     public function actionDel($id_doctor)
     {
         $doctor = Doctor::findOne($id_doctor);
@@ -70,6 +70,7 @@ public $modelClass = 'app\models\Doctor';
         return $this->send(200, ['content' => ['Status' => 'ok']]);
     }
 
+    /*Редактировать данные дока*/
     public function actionRed($id_doctor)
     {
         if (!$this->is_admin())

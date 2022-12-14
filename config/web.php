@@ -72,22 +72,32 @@ $config = [
 
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'clinic'],
-                //'POST product' => 'clinic/create'
+                'GET clinic' => 'clinic/clinic',//+
+                'POST clinic' => 'clinic/clinic',//+
+                'GET allclinic' => 'clinic/allclinic',//+
+                'POST clinic/add' => 'clinic/add',//+
+                'PATCH clinic/red/<id_clinic>' => 'clinic/red',//+
+                'DELETE clinic/del/<id_clinic>' => 'clinic/del',//+
+
                 //['class' => 'yii\rest\UrlRule', 'controller' => 'patient'],
                 'POST register' => 'patient/create',
                 'POST login' => 'patient/login',
                 'GET patient' => 'patient/account',
+                'PATCH patient/red/<id_patient>' => 'patient/red',//+
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
-                //'POST doctor' => 'doctor/create'
-
                 'GET doctor' => 'doctor/doctor',//+
                 'POST doctor' => 'doctor/doctor',//+
-                'GET alldoctor' => 'doctor/alldoctor',//+
+                //'GET alldoctor' => 'doctor/alldoctor',//+
                 'POST doctor/add' => 'doctor/add',//+
                 'PATCH doctor/red/<id_doctor>' => 'doctor/red',//+
                 'DELETE doctor/del/<id_doctor>' => 'doctor/del',//+
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment']
+
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment'],
+                'GET appointment' => 'appointment/show',//
+                'POST record' => 'appointment/record',//+
+                'POST appointment/add' => 'appointment/add',//+
+
             ]
         ],
 

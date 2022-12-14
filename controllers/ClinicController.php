@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+
 use app\models\Clinic;
 use app\models\LoginForm;
 use Yii;
@@ -19,78 +20,77 @@ public $modelClass = 'app\models\Clinic';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['add', 'del', 'red', 'alltrip'], //Перечислите для контроллера методы, требующие аутентификации
+            'only' => ['add', 'del', 'red', 'allclinic'], //Перечислите для контроллера методы, требующие аутентификации
 
         ];
         return $behaviors;
     }
 
-    /*Просмотр докторов*/
-    public function actionDoctor()
+    /*Просмотр клиник*/
+    public function actionClinic()
     {
-        $doctor = Doctor::find()
-            ->orderBy('id_doctor')
+        $clinic = Clinic::find()
+            ->orderBy('id_clinic')
             ->all();
-        return $this->send(200, ['Doctors' => $doctor]);
+        return $this->send(200, ['Clinics' => $clinic]);
     }
 
-    public function actionAllDoctor()
+    public function actionAllClinic()
     {
         if (!$this->is_admin())
             return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
-        $doctor = Doctor::find()
-            ->IndexBy('id_doctor')
+        $clinic = Clinic::find()
+            ->IndexBy('id_clinic')
             ->all();
-        return $this->send(200, ['Doctor' => $doctor]);
+        return $this->send(200, ['Clinic' => $clinic]);
     }
 
-    /*Добавление доков*/
+    /*Добавление клиник*/
     public function actionAdd()
     {
         if (!$this->is_admin())
             return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
         $request = Yii::$app->request->post(); //получение данных из post запроса
-        $doctor = new Doctor($request); // Создание модели на основе присланных данных
-        if (!$doctor->validate()) return $this->validation($doctor); //Валидация модели
-        $doctor->save();//Сохранение модели в БД
-        return $this->send(200, ['content' => ['code' => 200, 'message' => 'Специалист добавлен']]);
+        $clinic = new Clinic($request); // Создание модели на основе присланных данных
+        if (!$clinic->validate()) return $this->validation($clinic); //Валидация модели
+        $clinic->save();//Сохранение модели в БД
+        return $this->send(200, ['content' => ['code' => 200, 'message' => 'Поликлиника добавлена']]);
     }
 
-    /*Удалить рейсы*/
-    public function actionDel($id_doctor)
+    /*Удалить клинику*/
+    public function actionDel($id_clinic)
     {
-        $doctor = Doctor::findOne($id_doctor);
-        if (!$doctor) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Специалист не найден']]);
+        $clinic = Clinic::findOne($id_clinic);
+        if (!$clinic) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Поликлиника не найдена']]);
 
         if (!$this->is_admin())
             return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
-        $doctor = Doctor::findOne($id_doctor);
-        $doctor->delete();
+        $clinic = Clinic::findOne($id_clinic);
+        $clinic->delete();
         return $this->send(200, ['content' => ['Status' => 'ok']]);
     }
 
-    public function actionRed($id_doctor)
+    /*Редактировать клинику*/
+    public function actionRed($id_clinic)
     {
         if (!$this->is_admin())
             return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
 
         $request = Yii::$app->request->getBodyParams();
-        $doctor = Doctor::findOne($id_doctor);
+        $clinic = Clinic::findOne($id_clinic);
         //die($trip-$id_trip);
-        if (!$doctor) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Специалист не найден']]);
+        if (!$clinic) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Поликлиника не найдена']]);
         // return $this->send(200, $flight);
 
-        if (isset($request['doctor_photo'])) $doctor->doctor_photo = $request['doctor_photo'];
-        if (isset($request['doctor_surname'])) $doctor->doctor_surname = $request['doctor_surname'];
-        if (isset($request['doctor_name'])) $doctor->doctor_name = $request['doctor_name'];
-        if (isset($request['doctor_patronymic'])) $doctor->doctor_patronymic = $request['doctor_patronymic'];
-        if (isset($request['doctor_office'])) $doctor->doctor_office = $request['doctor_office'];
-        if (isset($request['start_date'])) $doctor->start_date = $request['start_date'];
-        if (isset($request['weekday'])) $doctor->weekday = $request['weekday'];
-        if (isset($request['office_hours'])) $doctor->office_hours = $request['office_hours'];
+        if (isset($request['id_clinic'])) $clinic->id_clinic = $request['id_clinic'];
+        if (isset($request['clinic_city'])) $clinic->clinic_city = $request['clinic_city'];
+        if (isset($request['clinic_region'])) $clinic->clinic_region = $request['clinic_region'];
+        if (isset($request['clinic_name'])) $clinic->clinic_name = $request['clinic_name'];
+        if (isset($request['clinic_address'])) $clinic->clinic_address = $request['clinic_address'];
+        if (isset($request['clinic_phone'])) $clinic->clinic_phone = $request['clinic_phone'];
 
-        if (!$doctor->validate()) return $this->validation($doctor);
-        $doctor->save();
+        if (!$clinic->validate()) return $this->validation($clinic);
+        $clinic->save();
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Данные обновлены']]);
     }
 }

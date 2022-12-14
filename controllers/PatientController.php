@@ -19,7 +19,7 @@ public $modelClass = 'app\models\Patient';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only'=>['account'] //Перечислите для контроллера методы, требующие аутентификации
+            'only'=>['account', 'red'] //Перечислите для контроллера методы, требующие аутентификации
             //здесь метод actionAccount()
         ];
         return $behaviors;
@@ -58,6 +58,31 @@ public $modelClass = 'app\models\Patient';
     public function actionAccount(){
         $patient=Yii::$app->user->identity; // Получить идентифицированного пользователя
         return $this->send(200, ['content'=> ['patient'=>$patient]]);
+    }
+
+    public function actionRed($id_patient)
+    {
+        $patient=Yii::$app->user->identity; // Получить идентифицированного пользователя
+
+
+        $request = Yii::$app->request->getBodyParams();
+        $patient = Patient::findOne($id_patient);
+        if (!$patient) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Пользователь не найден']]);
+
+        if (isset($request['patient_surname'])) $patient->patient_surname = $request['patient_surname'];
+        if (isset($request['patient_name'])) $patient->patient_name = $request['patient_name'];
+        if (isset($request['patient_patronymic'])) $patient->patient_patronymic = $request['patient_patronymic'];
+        if (isset($request['patient_birthday'])) $patient->patient_birthday = $request['patient_birthday'];
+        if (isset($request['patient_phone'])) $patient->patient_phone = $request['patient_phone'];
+        if (isset($request['patient_address'])) $patient->patient_address = $request['patient_address'];
+        if (isset($request['id_patient_clinic'])) $patient->id_patient_clinic = $request['id_patient_clinic'];
+        if (isset($request['ID_card'])) $patient->ID_card = $request['ID_card'];
+        if (isset($request['insurance'])) $patient->insurance = $request['insurance'];
+        if (isset($request['login'])) $patient->login = $request['login'];
+
+        if (!$patient->validate()) return $this->validation($patient);
+        $patient->save();
+        return $this->send(200, ['content' => ['code' => 200, 'message' => 'Данные обновлены']]);
     }
 
 

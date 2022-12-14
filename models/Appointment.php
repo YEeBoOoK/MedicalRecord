@@ -8,9 +8,10 @@ use Yii;
  * This is the model class for table "appointment".
  *
  * @property int $id_appointment
- * @property int $id_patient
+ * @property int|null $id_patient
  * @property int $id_doctor
  * @property string $acceptance_date
+ * @property string $acceptance_time
  * @property int $id_clinic
  *
  * @property Clinic $clinic
@@ -33,9 +34,9 @@ class Appointment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_patient', 'id_doctor', 'acceptance_date', 'id_clinic'], 'required'],
             [['id_patient', 'id_doctor', 'id_clinic'], 'integer'],
-            [['acceptance_date'], 'safe'],
+            [['id_doctor', 'acceptance_date', 'acceptance_time', 'id_clinic'], 'required'],
+            [['acceptance_date', 'acceptance_time'], 'safe'],
             [['id_patient'], 'exist', 'skipOnError' => true, 'targetClass' => Patient::className(), 'targetAttribute' => ['id_patient' => 'id_patient']],
             [['id_clinic'], 'exist', 'skipOnError' => true, 'targetClass' => Clinic::className(), 'targetAttribute' => ['id_clinic' => 'id_clinic']],
             [['id_doctor'], 'exist', 'skipOnError' => true, 'targetClass' => Doctor::className(), 'targetAttribute' => ['id_doctor' => 'id_doctor']],
@@ -52,6 +53,7 @@ class Appointment extends \yii\db\ActiveRecord
             'id_patient' => 'Id Patient',
             'id_doctor' => 'Id Doctor',
             'acceptance_date' => 'Acceptance Date',
+            'acceptance_time' => 'Acceptance Time',
             'id_clinic' => 'Id Clinic',
         ];
     }
