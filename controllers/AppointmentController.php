@@ -1,12 +1,15 @@
 <?php
 namespace app\controllers;
-use app\models\Appointment;
 use app\models\Patient;
 use app\models\Doctor;
-use yii\rest\ActiveController;
-use app\controllers\FunctionController;
+use app\models\LoginForm;
 use Yii;
+use app\controllers\FunctionController;
 use yii\filters\auth\HttpBearerAuth;
+use function PHPUnit\Framework\returnArgument;
+
+use app\models\Appointment;
+use yii\rest\ActiveController;
 
 class AppointmentController extends FunctionController
 {
@@ -20,12 +23,35 @@ public $modelClass = 'app\models\Appointment';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['add','record','show'] //Перечислите для контроллера методы, требующие аутентификации
+            'only' => ['add','red','record','show'] //Перечислите для контроллера методы, требующие аутентификации
         ];
         return $behaviors;
     }
 
-    /*Добавление доков*/
+    /*Просмотр свободных талонов*/
+    public function actionAppointment()
+    {
+        $appointment = Appointment::find()
+            ->where(['id_patient' => null])
+            ->orderBy('id_appointment')
+            ->all();
+        return $this->send(200, ['Свободные талончики' => $appointment]);
+    }
+
+
+    /*Просмотр талонов пользователем*/
+    public function actionShow()
+    {
+        $patient = Yii::$app->user->identity; //массив пользователя
+
+        $appointment = Appointment::findAll([
+            'id_patient'=>$patient->id_patient
+        ]);
+
+        return $this->send(200, ['Ваши записи' => $appointment]);
+    }
+
+    /*Добавление талонов админом*/
     public function actionAdd()
     {
         if (!$this->is_admin())
@@ -37,37 +63,39 @@ public $modelClass = 'app\models\Appointment';
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Талон добавлен']]);
     }
 
-    public function actionRecord()
+    /*Редактирование талонов админом*/
+    public function actionRed($id_appointment)
+    {
+        if (!$this->is_admin())
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
+
+        $request = Yii::$app->request->getBodyParams();
+        $appointment = Appointment::findOne($id_appointment);
+        if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
+
+        if (isset($request['id_patient'])) $appointment->id_patient = $request['id_patient'];
+        if (isset($request['id_doctor'])) $appointment->id_doctor = $request['id_doctor'];
+        if (isset($request['acceptance_date'])) $appointment->acceptance_date = $request['acceptance_date'];
+        if (isset($request['acceptance_time'])) $appointment->acceptance_time = $request['acceptance_time'];
+        if (isset($request['id_clinic '])) $appointment->id_clinic = $request['id_clinic'];
+
+        if (!$appointment->validate()) return $this->validation($appointment);
+        $appointment->save();
+        return $this->send(200, ['content' => ['code' => 200, 'message' => 'Данные обновлены']]);
+    }
+
+
+    public function actionRecord($id_appointment)
     { //запись к врачу
         //Проверка id_Appointment и на какую дату хочет
+
         $patient = Yii::$app->user->identity;
-        $request = Yii::$app->request->post();
-        $doctor = Doctor::find();
-        if (isset($request['id_appointment'])) $id_appointment = $request['id_appointment']; else return $this->send(404, ['content' => ['code' => 404, 'message' => 'Талон не найден']]);
-        $appointment = Appointment::findOne(['id_appointment' => $id_appointment]);
-       // if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Талон не найден']]);
-       // $appointment->seats = -1;
-
-        $appointment = new Appointment();// Создание модели на основе присланных данных
+        if (!$id_appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
+        $appointment = Appointment::findOne($id_appointment);
         $appointment->id_patient = $patient->id_patient;
-        $appointment->id_doctor = $doctor->id_doctor;
-        if (isset($request['acceptance_date'])) $appointment->acceptance_date = $request['acceptance_date']; else return $this->send(422, ['content' => ['code' => 422, 'message' => 'Выберите дату']]);
-
-
-        if (!$appointment->validate()) return $this->validation($appointment); //Валидация модели
-        $appointment->save();//Сохранение модели в БД
-        return $this->send(200, ['content' => ['Appointment' => $doctor,'message' => 'Вы записались к врачу', 'Код записи' => $appointment->id_appointment]]);//Отправка сообщения пользователю
-
+        if (!$appointment->validate()) return $this->validation($appointment);
+        $appointment->save();
+        return $this->send(200, ['content' => ['code' => 200, 'message' => 'Вы записались на прием']]);
     }
 
-    public function actionShow()
-    {
-        $patient = Yii::$app->user->identity; //массив пользователя
-
-        $appointment = Appointment::findAll([
-            'id_patient'=>$patient->id_patient
-        ]);
-
-        return $this->send(200, ['Appointments' => $appointment]);
-    }
 }

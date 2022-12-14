@@ -78,9 +78,7 @@ public $modelClass = 'app\models\Doctor';
 
         $request = Yii::$app->request->getBodyParams();
         $doctor = Doctor::findOne($id_doctor);
-        //die($trip-$id_trip);
         if (!$doctor) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Специалист не найден']]);
-        // return $this->send(200, $flight);
 
         if (isset($request['doctor_photo'])) $doctor->doctor_photo = $request['doctor_photo'];
         if (isset($request['doctor_surname'])) $doctor->doctor_surname = $request['doctor_surname'];

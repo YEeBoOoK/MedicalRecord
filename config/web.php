@@ -94,10 +94,12 @@ $config = [
                 'DELETE doctor/del/<id_doctor>' => 'doctor/del',//+
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment'],
-                'GET appointment' => 'appointment/show',//
-                'POST record' => 'appointment/record',//+
-                'POST appointment/add' => 'appointment/add',//+
+                'GET appointment' => 'appointment/appointment',//+
+                'GET appointment/show' => 'appointment/show',//
 
+                'POST appointment/add' => 'appointment/add',//+
+                'PATCH appointment/red/<id_appointment>' => 'appointment/red',//+
+                'PATCH appointment/record/<id_appointment>' => 'appointment/record',//+
             ]
         ],
 
