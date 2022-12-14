@@ -19,7 +19,7 @@ public $modelClass = 'app\models\Patient';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only'=>['account', 'red'] //Перечислите для контроллера методы, требующие аутентификации
+            'only'=>['account', 'red', 'del'] //Перечислите для контроллера методы, требующие аутентификации
             //здесь метод actionAccount()
         ];
         return $behaviors;
@@ -85,5 +85,12 @@ public $modelClass = 'app\models\Patient';
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Данные обновлены']]);
     }
 
+    /*Удаление пользователя*/
+
+    public function actionDel(){
+        $patient=Yii::$app->user->identity;
+        $patient->delete();
+        return $this->send(200, ['message'=>'Пользователь удален!']);
+    }
 
 }

@@ -23,7 +23,7 @@ public $modelClass = 'app\models\Appointment';
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['add','red','record','show'] //Перечислите для контроллера методы, требующие аутентификации
+            'only' => ['add','del','red','record','show'] //Перечислите для контроллера методы, требующие аутентификации
         ];
         return $behaviors;
     }
@@ -96,6 +96,19 @@ public $modelClass = 'app\models\Appointment';
         if (!$appointment->validate()) return $this->validation($appointment);
         $appointment->save();
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Вы записались на прием']]);
+    }
+
+    /*Удалить клинику*/
+    public function actionDel($id_appointment)
+    {
+        $appointment = Appointment::findOne($id_appointment);
+        if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
+
+        if (!$this->is_admin())
+            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+        $appointment = Appointment::findOne($id_appointment);
+        $appointment->delete();
+        return $this->send(200, ['content' => ['Status' => 'ok']]);
     }
 
 }

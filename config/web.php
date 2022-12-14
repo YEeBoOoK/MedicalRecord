@@ -83,6 +83,7 @@ $config = [
                 'POST register' => 'patient/create',
                 'POST login' => 'patient/login',
                 'GET patient' => 'patient/account',
+                'DELETE patient/del' => 'patient/del',//+
                 'PATCH patient/red/<id_patient>' => 'patient/red',//+
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
@@ -100,6 +101,7 @@ $config = [
                 'POST appointment/add' => 'appointment/add',//+
                 'PATCH appointment/red/<id_appointment>' => 'appointment/red',//+
                 'PATCH appointment/record/<id_appointment>' => 'appointment/record',//+
+                'DELETE appointment/del/<id_appointment>' => 'appointment/del',//+
             ]
         ],
 
