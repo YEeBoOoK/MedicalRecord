@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b901126c-a825-464f-a840-733a4dc60615" name="Changes" comment="V05">
+    <list default="true" id="b901126c-a825-464f-a840-733a4dc60615" name="Changes" comment="V06">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/AppointmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AppointmentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/PatientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PatientController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,7 @@
       <workItem from="1670827553341" duration="5197000" />
       <workItem from="1670840593832" duration="9228000" />
       <workItem from="1670949477522" duration="6022000" />
-      <workItem from="1670994530605" duration="26788000" />
+      <workItem from="1670994530605" duration="28379000" />
     </task>
     <task id="LOCAL-00001" summary="V0">
       <created>1669033813176</created>
@@ -231,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671031721407</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="V06">
+      <created>1671042037611</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671042037611</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +258,7 @@
     <MESSAGE value="V02" />
     <MESSAGE value="V03" />
     <MESSAGE value="V05" />
-    <option name="LAST_COMMIT_MESSAGE" value="V05" />
+    <MESSAGE value="V06" />
+    <option name="LAST_COMMIT_MESSAGE" value="V06" />
   </component>
 </project>
