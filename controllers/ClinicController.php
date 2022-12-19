@@ -39,7 +39,7 @@ public $modelClass = 'app\models\Clinic';
     public function actionAdd()
     {
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $request = Yii::$app->request->post(); //получение данных из post запроса
         $clinic = new Clinic($request); // Создание модели на основе присланных данных
         if (!$clinic->validate()) return $this->validation($clinic); //Валидация модели
@@ -54,7 +54,7 @@ public $modelClass = 'app\models\Clinic';
         if (!$clinic) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Поликлиника не найдена']]);
 
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $clinic = Clinic::findOne($id_clinic);
         $clinic->delete();
         return $this->send(200, ['content' => ['Status' => 'ok']]);

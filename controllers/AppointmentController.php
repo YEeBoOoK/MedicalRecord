@@ -93,7 +93,7 @@ public $modelClass = 'app\models\Appointment';
         $patient = Yii::$app->user->identity;
         $appointment = Appointment::findOne($id_appointment);
         if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
-        if(!$appointment->id_patient=null)  return $this->send(404, ['content' => ['code' => 404, 'message' => 'Нет записи']]);
+        if(!$appointment->id_patient=null)  return $this->send(422, ['content' => ['code' => 422, 'error' => 'Validation error']]);
         $appointment->id_patient = $patient->id_patient;
         if (!$appointment->validate()) return $this->validation($appointment);
         $appointment->save();
@@ -107,7 +107,7 @@ public $modelClass = 'app\models\Appointment';
         if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
 
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $appointment = Appointment::findOne($id_appointment);
         $appointment->delete();
         return $this->send(200, ['content' => ['Status' => 'ok']]);

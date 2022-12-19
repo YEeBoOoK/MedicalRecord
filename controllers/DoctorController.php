@@ -39,7 +39,7 @@ public $modelClass = 'app\models\Doctor';
     public function actionAdd()
     {
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $request = Yii::$app->request->post(); //получение данных из post запроса
         $doctor = new Doctor($request); // Создание модели на основе присланных данных
         if (!$doctor->validate()) return $this->validation($doctor); //Валидация модели
@@ -54,7 +54,7 @@ public $modelClass = 'app\models\Doctor';
         if (!$doctor) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Специалист не найден']]);
 
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $doctor = Doctor::findOne($id_doctor);
         $doctor->delete();
         return $this->send(200, ['content' => ['Status' => 'ok']]);
