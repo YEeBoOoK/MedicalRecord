@@ -26,9 +26,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
 
-        /*Добавьте этот компонент для формирования ответа
-здесь формируется ответ если пользователь неавторизован
-см. Методические указания стр. 21*/
+
         'response' => [
             'class' => 'yii\web\Response',
             'on beforeSend' => function ($event) {
@@ -71,37 +69,32 @@ $config = [
             'showScriptName' => false,
 
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'clinic'],
-                'GET clinic' => 'clinic/clinic',//+
-                'POST clinic' => 'clinic/clinic',//+
-                'GET allclinic' => 'clinic/allclinic',//+
-                'POST clinic/add' => 'clinic/add',//+
-                'PATCH clinic/red/<id_clinic>' => 'clinic/red',//+
-                'DELETE clinic/del/<id_clinic>' => 'clinic/del',//+
-
-                //['class' => 'yii\rest\UrlRule', 'controller' => 'patient'],
                 'POST register' => 'patient/create',
                 'POST login' => 'patient/login',
                 'GET patient' => 'patient/account',
-                'DELETE patient/del' => 'patient/del',//+
-                'PATCH patient/red/<id_patient>' => 'patient/red',//+
-
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
-                'GET doctor' => 'doctor/doctor',//+
-                'POST doctor' => 'doctor/doctor',//+
-                //'GET alldoctor' => 'doctor/alldoctor',//+
-                'POST doctor/add' => 'doctor/add',//+
-                'PATCH doctor/red/<id_doctor>' => 'doctor/red',//+
-                'DELETE doctor/del/<id_doctor>' => 'doctor/del',//+
+                'PATCH patient/red/<id_patient>' => 'patient/red',
+                'DELETE patient/del' => 'patient/del',//+,-
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'appointment'],
-                'GET appointment' => 'appointment/appointment',//+
-                'GET appointment/show' => 'appointment/show',//
+                'GET appointment' => 'appointment/appointment',
+                'POST appointment/add' => 'appointment/add',
+                'GET appointment/show' => 'appointment/show',
+                'PATCH appointment/record/<id_appointment>' => 'appointment/record',
+                'PATCH appointment/red/<id_appointment>' => 'appointment/red',
+                'DELETE appointment/del/<id_appointment>' => 'appointment/del',
 
-                'POST appointment/add' => 'appointment/add',//+
-                'PATCH appointment/red/<id_appointment>' => 'appointment/red',//+
-                'PATCH appointment/record/<id_appointment>' => 'appointment/record',//+
-                'DELETE appointment/del/<id_appointment>' => 'appointment/del',//+
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'clinic'],
+                'GET clinic' => 'clinic/clinic',//+
+                'POST clinic/add' => 'clinic/add',//+,-
+                'PATCH clinic/red/<id_clinic>' => 'clinic/red',//+,-
+                'DELETE clinic/del/<id_clinic>' => 'clinic/del',//+,-
+
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'doctor'],
+                'GET doctor' => 'doctor/doctor',
+                'POST doctor' => 'doctor/doctor',//+,-
+                'POST doctor/add' => 'doctor/add',//+,-
+                'PATCH doctor/red/<id_doctor>' => 'doctor/red',//+,-
+                'DELETE doctor/del/<id_doctor>' => 'doctor/del',//+,-
             ]
         ],
 

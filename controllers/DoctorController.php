@@ -35,16 +35,6 @@ public $modelClass = 'app\models\Doctor';
         return $this->send(200, ['Doctors' => $doctor]);
     }
 
-    public function actionAllDoctor()
-    {
-        if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
-        $doctor = Doctor::find()
-            ->IndexBy('id_doctor')
-            ->all();
-        return $this->send(200, ['Doctor' => $doctor]);
-    }
-
     /*Добавление доков*/
     public function actionAdd()
     {

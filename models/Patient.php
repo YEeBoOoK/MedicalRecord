@@ -97,10 +97,12 @@ class Patient extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne($id_patient);
     }
+
     public static function findByLogin($login)
     {
         return static::findOne(['login' => $login]);
     }
+
     public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::findOne(['token' => $token]);
@@ -120,6 +122,7 @@ class Patient extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return ;
     }
+
     public function validatePassword($password)
 
     {

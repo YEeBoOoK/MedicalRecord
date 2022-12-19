@@ -35,16 +35,6 @@ public $modelClass = 'app\models\Clinic';
         return $this->send(200, ['Clinics' => $clinic]);
     }
 
-    public function actionAllClinic()
-    {
-        if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
-        $clinic = Clinic::find()
-            ->IndexBy('id_clinic')
-            ->all();
-        return $this->send(200, ['Clinic' => $clinic]);
-    }
-
     /*Добавление клиник*/
     public function actionAdd()
     {
@@ -78,9 +68,7 @@ public $modelClass = 'app\models\Clinic';
 
         $request = Yii::$app->request->getBodyParams();
         $clinic = Clinic::findOne($id_clinic);
-        //die($trip-$id_trip);
         if (!$clinic) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Поликлиника не найдена']]);
-        // return $this->send(200, $flight);
 
         if (isset($request['id_clinic'])) $clinic->id_clinic = $request['id_clinic'];
         if (isset($request['clinic_city'])) $clinic->clinic_city = $request['clinic_city'];

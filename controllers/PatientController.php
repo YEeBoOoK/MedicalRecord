@@ -37,7 +37,7 @@ public $modelClass = 'app\models\Patient';
 
     /*
     * Аутентификация пользователя
-     * * Производится на основе модели loginForm со свойствами email и password
+     * * Производится на основе модели loginForm со свойствами login и password
      * */
 
     public function actionLogin(){
@@ -47,10 +47,10 @@ public $modelClass = 'app\models\Patient';
         $patient=Patient::find()->where(['login'=>$request['login']])->one();
         if (isset($patient) && Yii::$app->getSecurity()->validatePassword($request['password'], $patient->password)){
             $patient->token=Yii::$app->getSecurity()->generateRandomString();
-            $patient->save(false);
+            $patient->save();
             return $this->send(200, ['content'=>['token'=>$patient->token]]);
         }
-        return $this->send(401, ['content'=>['code'=>401, 'message'=>'Неверный логин или пароль']]);
+        else return $this->send(401, ['content'=>['code'=>401, 'message'=>'Неверный логин или пароль']]);
     }
     /*
      * Личный кабинет пользователя
@@ -59,6 +59,8 @@ public $modelClass = 'app\models\Patient';
         $patient=Yii::$app->user->identity; // Получить идентифицированного пользователя
         return $this->send(200, ['content'=> ['patient'=>$patient]]);
     }
+
+    /*Редактирование данных пользователей*/
 
     public function actionRed($id_patient)
     {

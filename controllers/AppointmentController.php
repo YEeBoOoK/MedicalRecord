@@ -35,7 +35,9 @@ public $modelClass = 'app\models\Appointment';
             ->where(['id_patient' => null])
             ->orderBy('id_appointment')
             ->all();
+        if ($appointment <= 0) return $this->send(200, ['content' => ['message' => 'Свободных талонов не найдено']]);
         return $this->send(200, ['Свободные талончики' => $appointment]);
+
     }
 
 
@@ -55,7 +57,7 @@ public $modelClass = 'app\models\Appointment';
     public function actionAdd()
     {
         if (!$this->is_admin())
-            return $this->send(401, ['content' => ['code' => 401, 'message' => 'Вы не являетесь администратором']]);
+            return $this->send(403, ['content' => ['code' => 403, 'message' => 'Вы не являетесь администратором']]);
         $request = Yii::$app->request->post(); //получение данных из post запроса
         $appointment = new Appointment($request); // Создание модели на основе присланных данных
         if (!$appointment->validate()) return $this->validation($appointment); //Валидация модели
@@ -87,18 +89,18 @@ public $modelClass = 'app\models\Appointment';
 
     public function actionRecord($id_appointment)
     { //запись к врачу
-        //Проверка id_Appointment и на какую дату хочет
 
         $patient = Yii::$app->user->identity;
-        if (!$id_appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
         $appointment = Appointment::findOne($id_appointment);
+        if (!$appointment) return $this->send(404, ['content' => ['code' => 404, 'message' => 'Запись не найдена']]);
+        if(!$appointment->id_patient=null)  return $this->send(404, ['content' => ['code' => 404, 'message' => 'Нет записи']]);
         $appointment->id_patient = $patient->id_patient;
         if (!$appointment->validate()) return $this->validation($appointment);
         $appointment->save();
         return $this->send(200, ['content' => ['code' => 200, 'message' => 'Вы записались на прием']]);
     }
 
-    /*Удалить клинику*/
+    /*Удалить талончик*/
     public function actionDel($id_appointment)
     {
         $appointment = Appointment::findOne($id_appointment);
