@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "1111f630-11d2-47b2-b466-47180d67839c",
+		"name": "MedicalRec",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21090777"
+	},
+	"item": [
+		{
+			"name": "Doc",
+			"item": [
+				{
+					"name": "Doctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/doctor",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DoctorCreate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "UaLaCqju71AnNpxugtJvEoE2oLHfAN29",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"doctor_photo\": \"\",\r\n            \"doctor_surname\": \"Федоров\",\r\n            \"doctor_name\": \"Абоб\",\r\n            \"doctor_patronymic\": \"Абобовн\",\r\n            \"id_doctor_clinic\": 4,\r\n            \"doctor_specialty\": \"Акула\",\r\n            \"doctor_office\": 12,\r\n            \"start_date\": \"2022-12-12\",\r\n            \"weekday\": \"пн-пт\",\r\n            \"office_hours\": \"09:00-18:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/doctor/add",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Doctor/Red/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ui92hrPpPBlWYia5qe6RGThcqXygYgwR",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"doctor_surname\": \"Абоба\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/doctor/red/2",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"red",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Doctor/Del/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ui92hrPpPBlWYia5qe6RGThcqXygYgwR",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/doctor/del/4",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"del",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"patient_surname\": \"Немынова\",\r\n        \"patient_name\": \"Анастасия\",\r\n        \"patient_patronymic\": \"Антонович\",\r\n        \"patient_birthday\": \"1980-11-21\",\r\n        \"patient_phone\": \"+7 (971) 200-95-20\",\r\n        \"patient_address\": \"Санкт-Петербург, Богатырский проспект, д7к3\",\r\n        \"id_patient_clinic\": 4,\r\n        \"ID_card\": \"9999999999\",\r\n        \"insurance\": \"222222222222\",\r\n        \"login\": \"anast\",\r\n        \"password\": \"123\"    \r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/register",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"anast\",\r\n    \"password\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/login",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "n5KGorvHnE4qQiGvxdBG4DYVaOSAGoae",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/patient",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient/Del (удаление своего аккаунта)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "n5KGorvHnE4qQiGvxdBG4DYVaOSAGoae",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/patient/del",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"patient",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Red/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient_surname\": \"Admink\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/patient/red/9",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"patient",
+								"red",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinic",
+			"item": [
+				{
+					"name": "Clinic",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/clinic",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"clinic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClinicCreate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Yfu62EAdy7VSMBTKzlyVL0g1uN32OsSC",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"clinic_city\": \"Санкт-Петербург\",\r\n        \"clinic_region\": \"Приморский\",\r\n        \"clinic_name\": \"Медкомиссия №2\",\r\n        \"clinic_address\": \" Богатырский просп., 36, корп. 1\",\r\n        \"clinic_phone\": \"+7 (813) 458-53-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/clinic/add",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"clinic",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clinic/Red/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Yfu62EAdy7VSMBTKzlyVL0g1uN32OsSC",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"clinic_address\": \" Богатырский просп., 43, корп. 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/clinic/red/8",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"clinic",
+								"red",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clinic/Del/<id>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Yfu62EAdy7VSMBTKzlyVL0g1uN32OsSC",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/clinic/del/8",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"clinic",
+								"del",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Appointment/Add(admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "fFytqN5zH14H9c18_hzJk7C4_aqdGRWH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_doctor\": 3,\r\n    \"acceptance_date\": \"2022-12-15\",\r\n    \"acceptance_time\": \"11:00\",\r\n    \"id_clinic\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment/add",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment/Red/<id_appointment>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "fFytqN5zH14H9c18_hzJk7C4_aqdGRWH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_patient\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment/red/4",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"red",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment (вывод свободных талонов)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment/Show (вывод записей пользователя)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "jFMGKYkbdzRynlveuTTM0SIBmC3bXabx",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment/show",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"show"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment/Record/<id> (запись пользователя)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Xn6dPIQGa0V0xIJR1pGT5bSx74WRrQ5y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment/record/4",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"record",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment/Del/<id> ",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "mce-IlhYK1qxX3vLXvaVFFcd5FaIPE6M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://k-osmanova.сделай.site/api/appointment/del/1",
+							"protocol": "http",
+							"host": [
+								"k-osmanova",
+								"сделай",
+								"site"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"del",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
